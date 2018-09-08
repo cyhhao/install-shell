@@ -3,7 +3,7 @@ yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel r
 wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0a1.tar.xz
 tar -xvJf  Python-3.7.0a1.tar.xz
 cd Python-3.7.0a1
-./configure --prefix=/usr/local/bin/python3 --enable-optimizations
+./configure --prefix=/usr/local/bin/python3
 make
 make install
 ln -s /usr/local/bin/python3/bin/python3 /usr/bin/python3
