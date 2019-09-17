@@ -1,8 +1,8 @@
 yum -y groupinstall "Development tools"
 yum -y install zlib-devel bzip2-devel openssl-devel ncurses-devel sqlite-devel readline-devel tk-devel gdbm-devel db4-devel libpcap-devel xz-devel libffi-devel
-wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
-tar -xvJf  Python-3.7.0a1.tar.xz
-cd Python-3.7.0a1
+wget https://www.python.org/ftp/python/3.7.4/Python-3.7.4.tar.xz
+tar -xvJf  Python-3.7.4.tar.xz
+cd Python-3.7.4
 ./configure --prefix=/usr/local/bin/python3
 make
 make install
