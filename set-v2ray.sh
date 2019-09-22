@@ -18,8 +18,8 @@ v2ui_port=$REPLY
 
 cat << EOF > /etc/nginx/conf.d/v2ray.conf
 server {
-    listen  80;
-    server_name           $servers;
+    listen       80;
+    server_name  $servers;
 
     root /usr/share/nginx/html;
     index index.html;
@@ -36,7 +36,8 @@ server {
 }
 
 server {
-    listen  80;
+    listen       80;
+    server_name  $v2ui_server_name;
 
     root /usr/share/nginx/html;
     index index.html;
