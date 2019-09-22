@@ -15,9 +15,6 @@ v2ui_server_name=$REPLY
 read -p "Enter your v2-ui port:"
 v2ui_port=$REPLY
 
-sudo openssl genrsa -des3 -out /etc/ssl/certs/tmp.key 1024
-sudo openssl req -new -key /etc/ssl/certs/tmp.key -out /etc/ssl/certs/tmp.csr
-sudo openssl x509 -req -days 3650 -in /etc/ssl/certs/tmp.csr -signkey /etc/ssl/certs/tmp.key -out ssl.crt
 
 cat << EOF > /etc/nginx/conf.d/v2ray.conf
 server {
