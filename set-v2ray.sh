@@ -1,35 +1,28 @@
 #!/usr/bin/env bash
 
-#read -p "Enter your ssl_certificate path:"
-#ssl_certificate_path=$REPLY
-#
-#read -p "Enter your ssl_certificate key path:"
-#ssl_certificate_key_path=$REPLY
+read -p "Enter your v2ray server host(s) space separated:"
+servers=$REPLY
 
 read -p "Enter your v2ray server port:"
 port=$REPLY
 
-read -p "Enter your server name(s) space separated:"
-servers=$REPLY
-
 read -p "Enter your websocket sub path:"
 subpath=$REPLY
 
-read -p "Enter your v2-ui server name:"
+read -p "Enter your v2-ui server host:"
 v2ui_server_name=$REPLY
 
 read -p "Enter your v2-ui port:"
 v2ui_port=$REPLY
 
+sudo openssl genrsa -des3 -out /etc/ssl/certs/tmp.key 1024
+sudo openssl req -new -key /etc/ssl/certs/tmp.key -out /etc/ssl/certs/tmp.csr
+sudo openssl x509 -req -days 3650 -in /etc/ssl/certs/tmp.csr -signkey /etc/ssl/certs/tmp.key -out ssl.crt
 
 cat << EOF > /etc/nginx/conf.d/v2ray.conf
 server {
-    listen  443 ssl http2 default_server;
-
-    ssl_protocols         TLSv1.2;
-    ssl_ciphers           HIGH:!aNULL:!MD5;
+    listen  80;
     server_name           $servers;
-    add_header            Strict-Transport-Security "max-age=63072000; includeSubdomains; ";
 
     root /usr/share/nginx/html;
     index index.html;
@@ -46,12 +39,10 @@ server {
 }
 
 server {
-    listen  443 ssl http2 ;
+    listen  80;
 
-    ssl_protocols         TLSv1.2;
-    ssl_ciphers           HIGH:!aNULL:!MD5;
-    server_name           $v2ui_server_name;
-    add_header            Strict-Transport-Security "max-age=63072000; includeSubdomains; ";
+    root /usr/share/nginx/html;
+    index index.html;
 
     location / {
         proxy_redirect off;
@@ -69,7 +60,7 @@ EOF
 ./install-certbot.sh
 
 sudo certbot --nginx
-
+cp /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak
 cat << EOF > /etc/nginx/conf.d/default.conf
 server {
     listen       80;
