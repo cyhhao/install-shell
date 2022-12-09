@@ -7,6 +7,8 @@ cd Python-3.11.1
 ./configure --prefix=/usr/local/bin/python3
 make
 make install
+rm -rf /usr/bin/python3
+rm -rf /usr/bin/pip3
 ln -s /usr/local/bin/python3/bin/python3 /usr/bin/python3
 ln -s /usr/local/bin/python3/bin/pip3 /usr/bin/pip3
 pip3 install --upgrade pip
