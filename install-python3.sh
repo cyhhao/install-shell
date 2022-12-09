@@ -4,7 +4,7 @@ yum install wget git
 wget https://www.python.org/ftp/python/3.11.1/Python-3.11.1.tgz
 tar zxvf Python-3.11.1.tgz
 cd Python-3.11.1
-./configure --prefix=/usr/local/bin/python3
+./configure --prefix=/usr/local/bin/python3 --with-openssl=/usr/local/openssl
 make
 make install
 rm -rf /usr/bin/python3
